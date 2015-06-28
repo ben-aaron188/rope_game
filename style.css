@@ -5,11 +5,43 @@
   left: 50%;
 }
 #player{
-  border:1px solid #000000;
-  position: fixed;
+  //border:1px solid #000000;
+  position: absolute;
   top: 50%;
   left: 50%;
-  width: 80px;
-  height: 300px;
-  background-color: black;
+  width: 45px;
+  height: 75px;
+  background: transparent url(mock_char/walking.png) no-repeat;
+  background-size: cover;
+  //background-color: red;
+}
+#player_left{
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 45px;
+  height: 75px;
+  background: transparent url(mock_char/left.png) no-repeat;
+  background-size: cover;
+  //background-color: red;
+}
+#player_right{
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  width: 45px;
+  height: 75px;
+  background: transparent url(mock_char/right.png) no-repeat;
+  background-size: cover;
+  //background-color: red;
+}
+#page_wrapper {
+  width: 300px;
+  height: 500px;
+  background: transparent url(images/rio_cropped.png)  0px 500px repeat-y;
+	background-size: cover;
+  border: 3px solid Blue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }

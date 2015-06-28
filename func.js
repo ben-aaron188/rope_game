@@ -1,4 +1,4 @@
-var Angle_pos = Angle_neg = 0,
+var Angle_pos = Angle_neg = current_deg = 0,
   angle = 10,
   count = 0,
   movementID;
@@ -6,10 +6,28 @@ var Angle_pos = Angle_neg = 0,
 $(document)
   .ready(function() {
     css_center($("#player"))
+    css_center($("#player_left"))
+    css_center($("#player_right"))
+    css_center($("#page_wrapper"))
+    $("#player").sprite({
+      fps: 12,
+      no_of_frames: 10
+    });
+    $("#player_left").sprite({
+      fps: 6,
+      no_of_frames: 4
+    });
+    $("#player_right").sprite({
+      fps: 6,
+      no_of_frames: 4
+    });
+    $("#page_wrapper").pan({
+      fps: 17,
+      speed: 1,
+      dir: 'down'
+    });
   })
   .keydown(function(e) {
-    console.log(Angle_pos)
-    console.log(Angle_neg)
     var code = e.keyCode || e.which;
     switch (code) {
       case 39:
@@ -26,8 +44,9 @@ $(document)
   })
 
 
-function get_rotation_degree(){
-  $("#player").getdegree().deg
+function get_rotation_degree() {
+  current_deg = $("#player").getdegree().deg
+  //console.log(current_deg)
 }
 
 function correct_pos() {
@@ -35,16 +54,19 @@ function correct_pos() {
     correct_pos()
   });
   count++
-  if (count < 2) {
-    Angle_pos += angle;
-    $("#player").css({
-      "-webkit-transform": "rotate(" + Angle_pos + "deg)",
-      "-moz-transform": "rotate(" + Angle_pos + "deg)",
-      "-ms-transform": "rotate(" + Angle_pos + "deg)",
-      "-o-transform": "rotate(" + Angle_pos + "deg)",
-      "transform": "rotate(" + Angle_pos + "deg)",
-      "zoom": 1
-    })
+  if (count < 3) {
+    get_rotation_degree();
+    if (current_deg < 190) {
+      Angle_pos = current_deg + 5;
+      $("#player").css({
+        "-webkit-transform": "rotate(" + Angle_pos + "deg)",
+        "-moz-transform": "rotate(" + Angle_pos + "deg)",
+        "-ms-transform": "rotate(" + Angle_pos + "deg)",
+        "-o-transform": "rotate(" + Angle_pos + "deg)",
+        "transform": "rotate(" + Angle_pos + "deg)",
+        "zoom": 1
+      })
+    }
   }
 }
 
@@ -53,19 +75,21 @@ function correct_neg() {
     correct_neg()
   });
   count++
-  if (count < 2) {
-    Angle_neg += angle;
-    $("#player").css({
-      "-webkit-transform": "rotate(-" + Angle_neg + "deg)",
-      "-moz-transform": "rotate(-" + Angle_neg + "deg)",
-      "-ms-transform": "rotate(-" + Angle_neg + "deg)",
-      "-o-transform": "rotate(-" + Angle_neg + "deg)",
-      "transform": "rotate(-" + Angle_neg + "deg)",
-      "zoom": 1
-    })
+  if (count < 3) {
+    get_rotation_degree();
+    if (current_deg > -190) {
+      Angle_neg = current_deg - 5;
+      $("#player").css({
+        "-webkit-transform": "rotate(" + Angle_neg + "deg)",
+        "-moz-transform": "rotate(" + Angle_neg + "deg)",
+        "-ms-transform": "rotate(" + Angle_neg + "deg)",
+        "-o-transform": "rotate(" + Angle_neg + "deg)",
+        "transform": "rotate(" + Angle_neg + "deg)",
+        "zoom": 1
+      })
+    }
   }
 }
-
 
 function corrector() {
   $(document)
